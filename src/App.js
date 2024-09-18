@@ -1,11 +1,19 @@
 import { useState } from "react";
 import "./App.css";
-import ToDoList from "./ToDoList.jsx";
+import Text from "./Text.js";
 
 function App() {
+  const [showText, setShowText] = useState(false);
   return (
     <div className="App">
-      <ToDoList />
+      <button
+        onClick={() => {
+          setShowText(!showText);
+        }}
+      >
+        Show Text
+      </button>
+      {showText && <Text />}
     </div>
   );
 }

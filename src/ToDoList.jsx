@@ -13,6 +13,7 @@ function ToDoList() {
     const task = {
       id: toDoList.length === 0 ? 1 : toDoList[toDoList.length - 1].id + 1,
       taskName: newTask,
+      isComplete: false,
     };
     setToDoList([...toDoList, task]);
   };
@@ -21,6 +22,18 @@ function ToDoList() {
     const newTodoList = toDoList.filter((task) => task.id !== id);
 
     setToDoList(newTodoList);
+  };
+
+  const handleComplete = (selectedId) => {
+    setToDoList(
+      toDoList.map((task) => {
+        if (task.id === selectedId) {
+          return { ...task, isComplete: true };
+        } else {
+          return task;
+        }
+      })
+    );
   };
 
   return (
@@ -32,9 +45,23 @@ function ToDoList() {
       <div className="list">
         {toDoList.map((list, key) => {
           return (
-            <div key={list.id}>
-              <h1>{list.taskName}</h1>
+            <div
+              style={{ color: list.isComplete ? "green" : "black" }}
+              key={list.id}
+            >
+              <h1 style={{ color: list.isComplete ? "green" : "black" }}>
+                {list.taskName}
+              </h1>
               <button
+                style={{ color: list.isComplete ? "green" : "black" }}
+                onClick={() => {
+                  handleComplete(list.id);
+                }}
+              >
+                Complete
+              </button>
+              <button
+                style={{ color: list.isComplete ? "green" : "black" }}
                 onClick={() => {
                   deleteTask(list.id);
                 }}
